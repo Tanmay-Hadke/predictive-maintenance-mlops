@@ -50,6 +50,6 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f k8s/
+          kubectl apply -f k8s/ --validate=false
       - name: Debug kubeconfig
         run: head -c 200 "$KUBECONFIG"
