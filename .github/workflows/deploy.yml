@@ -26,12 +26,20 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/predictive-maintenance:latest
 
-      - name: Deploy to Kubernetes
-        env:
-          KUBECONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: 'latest'
+
+      - name: Configure Kubeconfig
         run: |
           mkdir -p ~/.kube
-          echo "$KUBECONFIG_DATA" > ~/.kube/config
+          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+          # Ensure the file is not readable by others for security
+          chmod 600 ~/.kube/config
+
+      - name: Deploy to Kubernetes
+        run: |
           kubectl apply -f k8s/
           kubectl apply -f monitoring/
           kubectl rollout restart deployment/predictive-maintenance-deployment
