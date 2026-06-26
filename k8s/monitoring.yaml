@@ -2,16 +2,15 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: predictive-maintenance-monitor
-  namespace: monitoring # Must be in the same namespace as Prometheus
   labels:
-    release: my-prometheus
+    release: my-prometheus  # <--- THIS MUST MATCH THE OUTPUT FROM STEP 1
 spec:
   selector:
     matchLabels:
       app: predictive-maintenance
   namespaceSelector:
     matchNames:
-      - default # Tell Prometheus to look in the 'default' namespace
+      - default
   endpoints:
   - port: http
     path: /metrics
