@@ -37,6 +37,14 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
+      - name: Debug kubeconfig structure
+        run: |
+          echo "First character: $(head -c 1 "$KUBECONFIG" | od -c)"
+          echo "Last character: $(tail -c 1 "$KUBECONFIG" | od -c)"
+          echo "Line count: $(wc -l < "$KUBECONFIG")"
+          echo "First 80 chars (escaped):"
+          head -c 80 "$KUBECONFIG" | cat -A
+
       - name: Verify cluster connection
         run: kubectl config view --minify
 
