@@ -1,19 +1,17 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: monitoring
----
-# This is a simplified example of how we point Prometheus to your service
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: predictive-maintenance-monitor
+  namespace: monitoring # Must be in the same namespace as Prometheus
   labels:
-    team: mlops
+    release: my-prometheus
 spec:
   selector:
     matchLabels:
       app: predictive-maintenance
+  namespaceSelector:
+    matchNames:
+      - default # Tell Prometheus to look in the 'default' namespace
   endpoints:
   - port: http
     path: /metrics
