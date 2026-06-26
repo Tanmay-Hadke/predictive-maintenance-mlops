@@ -27,13 +27,11 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/predictive-maintenance:latest
 
       - name: Deploy to Kubernetes
+        env:
+          KUBECONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
         run: |
-          # 1. Apply infrastructure manifests
+          mkdir -p ~/.kube
+          echo "$KUBECONFIG_DATA" > ~/.kube/config
           kubectl apply -f k8s/
-          
-          # 2. Apply monitoring and alerting configurations
-          # This ensures your Prometheus rules are always up to date
           kubectl apply -f monitoring/
-          
-          # 3. Trigger rollout to restart pods with the new image
           kubectl rollout restart deployment/predictive-maintenance-deployment
