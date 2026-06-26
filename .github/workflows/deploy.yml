@@ -5,17 +5,25 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build Docker Image
-        run: docker build -t mlops-inference:latest .
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Setup Minikube/Kubernetes
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/predictive-maintenance:latest
+
+      - name: Deploy to Kubernetes
         run: |
-          # Here we configure your cluster credentials
-          kubectl apply -f k8s/
-          # This command forces the cluster to restart with your new image
-          kubectl rollout restart deployment/predictive-maintenance-deployment
+          # In a real environment, this would use your kubeconfig secret 
+          # to trigger a rollout on your cluster
+          echo "Image pushed! Deployment trigger would go here."
