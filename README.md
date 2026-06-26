@@ -68,4 +68,4 @@ curl -X POST http://localhost:8000/predict \
 
 The system is configured with a `HighTorqueAnomaly` alert rule. If the average torque exceeds 90 units, the system triggers a critical severity alert to the configured Alertmanager endpoint.
 
-**Note:**Project developed as an MLOps reference implementation for predictive industrial maintenance.
+*Note:* Project developed as an MLOps reference implementation for predictive industrial maintenance.
