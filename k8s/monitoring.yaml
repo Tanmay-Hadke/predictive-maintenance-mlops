@@ -1,9 +1,9 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: predictive-maintenance-monitor
+  name: predictive-maintenance-scraper
   labels:
-    release: my-prometheus  # <--- THIS MUST MATCH THE OUTPUT FROM STEP 1
+    release: my-prometheus
 spec:
   selector:
     matchLabels:
