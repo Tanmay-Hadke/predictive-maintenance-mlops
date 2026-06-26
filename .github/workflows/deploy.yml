@@ -31,12 +31,11 @@ jobs:
         with:
           version: 'latest'
 
-      - name: Configure Kubeconfig
-        run: |
-          mkdir -p ~/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
-          # Ensure the file is not readable by others for security
-          chmod 600 ~/.kube/config
+      - name: Create Kubeconfig
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
       - name: Deploy to Kubernetes
         run: |
