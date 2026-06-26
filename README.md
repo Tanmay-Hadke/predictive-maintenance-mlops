@@ -22,7 +22,7 @@ This project monitors industrial torque, rotational speed, and temperature to pr
 
 * Proactive Monitoring: ** Real-time dashboard for visualizing feature drift and model latency.
 
-        Automated HighTorqueAnomaly alerts that notify stakeholders via Alertmanager.
+*   Automated HighTorqueAnomaly alerts that notify stakeholders via Alertmanager.
 
 * Infrastructure as Code: Fully declarative monitoring configurations deployed directly into the cluster.
 
