@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+---
+# This is a simplified example of how we point Prometheus to your service
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: predictive-maintenance-monitor
+  labels:
+    team: mlops
+spec:
+  selector:
+    matchLabels:
+      app: predictive-maintenance
+  endpoints:
+  - port: http
+    path: /metrics

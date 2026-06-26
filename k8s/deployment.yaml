@@ -5,7 +5,6 @@ metadata:
   labels:
     app: predictive-maintenance
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app: predictive-maintenance
