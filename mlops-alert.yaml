@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: predictive-maintenance-alerts
+  namespace: monitoring
+  labels:
+    # The exact keys the Operator is looking for
+    app: kube-prometheus-stack
+    release: my-prometheus
+spec:
+  groups:
+  - name: mlops-model.rules
+    rules:
+    - alert: HighTorqueAnomaly
+      expr: avg(input_feature_mean_torque{job="predictive-maintenance"}) > 90
+      labels:
+        severity: critical
+        component: inference-engine
+      annotations:
+        summary: "Critical Machine Stress Detected"
+        description: "The predictive maintenance model has registered a sustained torque above 90. Immediate inspection required."

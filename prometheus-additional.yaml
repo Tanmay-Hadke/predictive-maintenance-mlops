@@ -1,0 +1,4 @@
+- job_name: 'predictive-maintenance'
+  scrape_interval: 15s
+  static_configs:
+  - targets: ['predictive-maintenance-service.default.svc.cluster.local:8000']
