@@ -37,19 +37,11 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
+      - name: Verify cluster connection
+        run: kubectl config view --minify
+
       - name: Deploy to Kubernetes
-        env:
-          KUBECONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
         run: |
-          mkdir -p ~/.kube
-          # Print the secret to a file - using printf ensures no extra newline artifacts
-          printf "%s" "$KUBECONFIG_DATA" > ~/.kube/config
-          
-          # Verify the file is valid YAML before running kubectl
-          echo "Verifying kubeconfig format..."
-          kubectl config view --minify
-          
-          # Run deployments
           kubectl apply -f k8s/
-          kubectl apply -f monitoring/
-          kubectl rollout restart deployment/predictive-maintenance-deployment
+      - name: Debug kubeconfig
+        run: head -c 200 "$KUBECONFIG"
