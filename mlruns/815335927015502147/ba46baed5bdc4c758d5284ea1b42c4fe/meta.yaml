@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/815335927015502147/ba46baed5bdc4c758d5284ea1b42c4fe/artifacts
+end_time: 1782460780169
+entry_point_name: ''
+experiment_id: '815335927015502147'
+lifecycle_stage: active
+run_id: ba46baed5bdc4c758d5284ea1b42c4fe
+run_name: sedate-tern-212
+run_uuid: ba46baed5bdc4c758d5284ea1b42c4fe
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1782460778817
+status: 3
+tags: []
+user_id: tanmay

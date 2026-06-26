@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/815335927015502147/feb812ed7bf84afd82870cb791de4748/artifacts
+end_time: 1782460472208
+entry_point_name: ''
+experiment_id: '815335927015502147'
+lifecycle_stage: active
+run_id: feb812ed7bf84afd82870cb791de4748
+run_name: valuable-quail-628
+run_uuid: feb812ed7bf84afd82870cb791de4748
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1782460470897
+status: 3
+tags: []
+user_id: tanmay

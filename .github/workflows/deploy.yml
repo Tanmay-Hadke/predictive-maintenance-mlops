@@ -1,0 +1,21 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: docker build -t mlops-inference:latest .
+
+      - name: Setup Minikube/Kubernetes
+        run: |
+          # Here we configure your cluster credentials
+          kubectl apply -f k8s/
+          # This command forces the cluster to restart with your new image
+          kubectl rollout restart deployment/predictive-maintenance-deployment

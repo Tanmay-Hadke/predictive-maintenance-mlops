@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/815335927015502147/081fcf1b3eaf4fea97fdc703b7ff2093/artifacts
+end_time: 1782460470895
+entry_point_name: ''
+experiment_id: '815335927015502147'
+lifecycle_stage: active
+run_id: 081fcf1b3eaf4fea97fdc703b7ff2093
+run_name: enthused-toad-557
+run_uuid: 081fcf1b3eaf4fea97fdc703b7ff2093
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1782460469548
+status: 3
+tags: []
+user_id: tanmay
