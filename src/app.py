@@ -6,8 +6,15 @@ import pandas as pd
 from fastapi import FastAPI, Response
 from pydantic import BaseModel
 from prometheus_client import Counter, Histogram, Gauge, generate_latest, CONTENT_TYPE_LATEST
+from prometheus_fastapi_instrumentator import Instrumentator    
 
 app = FastAPI(title="Predictive Maintenance Inference Service")
+
+# Initialize the instrumentator
+instrumentator = Instrumentator()
+
+# Hook it up to your FastAPI app
+instrumentator.instrument(app).expose(app)
 
 # Prometheus Metrics definition
 REQUEST_COUNT = Counter("prediction_requests_total", "Total number of prediction requests.")
