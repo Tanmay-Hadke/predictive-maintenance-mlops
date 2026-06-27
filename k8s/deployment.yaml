@@ -19,8 +19,10 @@ spec:
     spec:
       containers:
       - name: inference-service
-        image: mlops-inference:local
-        imagePullPolicy: Never
+        # UPDATE THIS LINE: Point to the image your CI/CD pipeline builds
+        image: tanmayh12/predictive-maintenance:latest
+        # UPDATE THIS LINE: Allow Minikube to pull from Docker Hub
+        imagePullPolicy: Always
         ports:
         - containerPort: 8000
         resources:
