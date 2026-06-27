@@ -35,6 +35,11 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
+
           kubectl apply -f k8s/ --validate=false
-          kubectl apply -f monitoring/ --validate=false
+          
+          # 2. TARGET ONLY THE SPECIFIC MANIFEST 
+          kubectl apply -f monitoring/predictive-maintenance-scraper.yaml --validate=false
+          
+          # 3. Trigger your rolling update
           kubectl rollout restart deployment/predictive-maintenance-deployment
