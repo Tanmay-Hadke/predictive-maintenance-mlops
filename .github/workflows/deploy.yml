@@ -39,4 +39,4 @@ jobs:
           kubectl apply -f k8s/ --validate=false
           
           # 2. Trigger your rolling update
-          kubectl rollout restart deployment/predictive-maintenance-deployment
+          kubectl rollout restart deployment/predictive-maintenance-api
