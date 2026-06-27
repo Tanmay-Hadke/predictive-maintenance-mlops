@@ -33,10 +33,11 @@ jobs:
 
       - name: Configure Kubernetes credentials (Base64 Decode)
         env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+          # Updated to match your exact GitHub Secret name
+          KUBECONFIG_DATA: ${{ secrets.KUBECONFIG_DATA }}
         run: |
           mkdir -p ~/.kube
-          echo "$KUBE_CONFIG" | base64 --decode > ~/.kube/config
+          echo "$KUBECONFIG_DATA" | base64 --decode > ~/.kube/config
           chmod 600 ~/.kube/config
 
       - name: Debug kubeconfig structure
