@@ -6,7 +6,8 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest
+    # 1. Change this from ubuntu-latest to self-hosted
+    runs-on: self-hosted
     permissions:
       contents: read
       id-token: write
@@ -26,36 +27,14 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/predictive-maintenance:latest
 
-      - name: Setup kubectl
-        uses: azure/setup-kubectl@v4
-        with:
-          version: 'latest'
+      # 2. Delete all the Base64 and Kubeconfig setup steps. 
+      # The runner will natively use your local ~/.kube/config!
 
-      - name: Configure Kubernetes credentials (Base64 Decode)
-        env:
-          # Updated to match your exact GitHub Secret name
-          KUBECONFIG_DATA: ${{ secrets.KUBECONFIG_DATA }}
-        run: |
-          mkdir -p ~/.kube
-          echo "$KUBECONFIG_DATA" | base64 --decode > ~/.kube/config
-          chmod 600 ~/.kube/config
-
-      - name: Debug kubeconfig structure
-        run: |
-          echo "First character: $(head -c 1 ~/.kube/config | od -c)"
-          echo "Last character: $(tail -c 1 ~/.kube/config | od -c)"
-          echo "Line count: $(wc -l < ~/.kube/config)"
-          echo "First 80 chars (escaped):"
-          head -c 80 ~/.kube/config | cat -A
-
-      - name: Verify cluster connection
-        run: kubectl config view --minify
+      - name: Verify local Minikube connection
+        run: kubectl config current-context
 
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f k8s/ --validate=false
           kubectl apply -f monitoring/ --validate=false
           kubectl rollout restart deployment/predictive-maintenance-deployment
-
-      - name: Debug kubeconfig
-        run: head -c 200 ~/.kube/config
